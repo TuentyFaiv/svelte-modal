@@ -1,4 +1,4 @@
-# Svelte Forms
+# Svelte Modal
 
 `npm install @tuentyfaiv/svelte-modal`
 
