@@ -4,10 +4,10 @@
 
 ## Examples
 ```typescript
-import { modalStore } from "@tuentyfaiv/svelte-modal";
+import { faivmodal } from "@tuentyfaiv/svelte-modal";
 
-const modal = modalStore({
-  query: "(max-width: 768px)",
+const modal = faivmodal({
+  query: "(max-width: 768px)", // "(768px <= width <= 1024px)"
 });
 const { open, device, toggleModal } = $modal;
 ```

@@ -1,14 +1,14 @@
 import { onMount } from "svelte";
 import { readable, writable } from "svelte/store";
-import { toggle } from "../utils/booleans";
+import { toggle } from "../utils/booleans.js";
 
-import type { ModalConfig, ModalContext } from "../typing/stores.modal";
+import type { ModalConfig, ModalContext } from "../typing/stores.modal.js";
 
-export function modalStore({ query = null, element }: ModalConfig = {}) {
+export function faivmodal({ query = null, element }: ModalConfig = {}) {
   const config = { query, element };
   const open = writable<boolean>(false);
   const device = writable<boolean>(false);
-  const media = matchMedia(config.query ?? "(min-width: 0px)");
+  const media = typeof window !== "undefined" ? matchMedia(config.query ?? "(min-width: 0px)") : null;
 
   function toggleDevice(custom?: unknown) {
     toggle(device, custom);
@@ -35,21 +35,21 @@ export function modalStore({ query = null, element }: ModalConfig = {}) {
       if (isOpen && !event.matches) toggleModal(false);
       if (config.element) disableScroll(event, isOpen);
     });
-    toggleDevice(media.matches);
+    toggleDevice(media?.matches);
   }
 
   function unlisten() {
-    media.removeEventListener("change", listener, true);
+    media?.removeEventListener("change", listener, true);
   }
 
   function listen() {
     onMount(() => {
-      media.addEventListener("change", listener, true);
+      media?.addEventListener("change", listener, true);
 
       open.subscribe((isOpen) => {
-        if (config.element) disableScroll(media, isOpen);
+        if (config.element && media) disableScroll(media, isOpen);
       });
-      toggleDevice(media.matches);
+      toggleDevice(media?.matches);
 
       return () => {
         unlisten();
@@ -61,7 +61,7 @@ export function modalStore({ query = null, element }: ModalConfig = {}) {
   const context = readable<ModalContext>({
     open,
     device,
-    toggleModal
+    toggleModal,
   });
 
   return context;

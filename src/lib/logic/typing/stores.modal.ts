@@ -4,7 +4,6 @@ export interface ModalContext {
   open: Writable<boolean>;
   device: Writable<boolean>;
   toggleModal(custom?: unknown): void;
-  // listen: VoidFunction;
 }
 
 export interface ModalConfig {
@@ -12,6 +11,12 @@ export interface ModalConfig {
   element?: string;
 }
 
-type Width = `${"max" | "min"}-width: ${number}px`;
+type Units = "px" | "em" | "rem" | "vw" | "vh" | "vmin" | "vmax" | "%";
 
-type Query = `(${Width})`;
+type Width = `${"max" | "min"}-width: ${number}${Units}`;
+type Range = `${Width} and ${Width}`;
+type LevelFourRange = `${number}${Units} <= width <= ${number}${Units}`;
+type LevelFourMin = `${number}${Units} <= width`;
+type LevelFourMax = `width <= ${number}${Units}`;
+
+export type Query = `(${LevelFourRange | LevelFourMax | LevelFourMin | Width | Range})`;

@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { modalStore } from "$lib";
+  import { faivmodal } from "../lib/index.js";
 
-  const modal = modalStore({
-    query: "(max-width: 768px)",
+  const modal = faivmodal({
+    query: "(300px <= width <= 768px)",
   });
   const { open, device, toggleModal } = $modal;
 
