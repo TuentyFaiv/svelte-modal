@@ -1,7 +1,7 @@
 {
 	"name": "@tuentyfaiv/svelte-modal",
 	"description": "A library for modals in svelte",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
